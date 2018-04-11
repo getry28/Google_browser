@@ -7,7 +7,7 @@ W projekcie tym tak jak poprzednio znajduje się minimalny kod wyjściowy.
 
 ### User story: ###
 
-Co to jest user story?! [https://en.wikipedia.org/wiki/User_story](Link)
+Co to jest user story?! [Link](https://en.wikipedia.org/wiki/User_story)
 
 - Użytkownik wchodzi na stronę wyglądającą jak strona wyników wyszukiwania google.com
 - Użytkownik ma możliwość wpisywania tekstów w pole search'a
@@ -23,9 +23,9 @@ Co to jest user story?! [https://en.wikipedia.org/wiki/User_story](Link)
 
 - Należy stworzyć stronę wyników wyszukiwania google
 - Należy rozbudować plik rest.php aby zwracał wyniki tylko dla przekazanej frazy
-- Należy użyć AJAX lub [https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch](Fetch API)
+- Należy użyć AJAX lub [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
 - Można wykorzystywać po stronie JS biblioteki jakie się tylko chce
-- Do tego zadania dla osób które nie używały dużo JS'a zalecany jest zwykły najprostszy [https://jquery.com/](jQuery)
+- Do tego zadania dla osób które nie używały dużo JS'a zalecany jest zwykły najprostszy [jQuery](https://jquery.com/)
 
 
 ### Punktacja: ###
