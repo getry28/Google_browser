@@ -11,6 +11,10 @@ $username = "root";
 $password = "mysql";
 $dbname = "Crawler";
 
+if(!empty($_GET['search'])){
+    $searchTerm = $_GET['url'];
+}
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -20,7 +24,7 @@ if ($conn->connect_error) {
 }
 
 // ---------------------------------------------- FUNCTIONS ----------------------------------------------
-function getResults($conn, $googleSearch) {
+function getResults($conn, $searchTerm) {
     $sql = "SELECT `id`, `site`, `content`, `date` FROM `SitesViewed` WHERE 1";
 
 	$result = $conn->query($sql);
@@ -39,8 +43,9 @@ function getResults($conn, $googleSearch) {
 	}
 }
 
-getResults($conn, "test");
-
+if(isset($searchTerm)) {
+	getResults($conn, $searchTerm);
+}
 
 // -------------------------------------- CLOSE DATABASE CONNECTION --------------------------------------
 // Close connection with database
