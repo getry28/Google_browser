@@ -1,13 +1,14 @@
 <?php
 // University database access data
-$servername = "localhost";
-$username = "root";
-$password = "root";
-
-// User (home) database access data
 // $servername = "localhost";
 // $username = "root";
-// $password = "jr10ME11sc19lm";
+// $password = "mysql";
+
+// My database access data
+$servername = "mysql";
+$username = "root";
+$password = "mysql";
+$dbname = "Crawler";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
@@ -19,14 +20,14 @@ if ($conn->connect_error) {
 echo "<h3 style='margin: 0;'>Etapy tworzenia bazy danych:</h3><ul id='database-creation-part-list' style='margin: 10px 0 0 0; list-style-type:decimal;'>";
 
 // Create database
-$sql = "CREATE DATABASE IF NOT EXISTS Crawler";
+$sql = "CREATE DATABASE IF NOT EXISTS " . $dbname;
 if ($conn->query($sql) === TRUE) {
     echo "<li>Database created successfully</li>";
 } else {
     echo "<li>Error creating database: " . $conn->error . "</li>";
 }
 
-$conn->select_db("Crawler");
+$conn->select_db($dbname);
 
 // sql to create table
 $sql = "CREATE TABLE IF NOT EXISTS SitesViewed (
@@ -62,7 +63,7 @@ if (!$exists) {
     $sql = "ALTER TABLE SitesViewed ADD content TEXT after site";
 
     if (mysqli_query($conn, $sql)) {
-        echo "ALTER TABLE SitesViewed successfully";
+        echo "</br>ALTER TABLE SitesViewed successfully</br>";
     } else {
         echo "<li>Error creating table: " . mysqli_error($conn). "</li>";
     }
@@ -70,7 +71,7 @@ if (!$exists) {
     // sql to ALTER table
     $sql = "ALTER TABLE SitesViewed MODIFY site VARCHAR(2048)";
     if (mysqli_query($conn, $sql)) {
-        echo "ALTER TABLE SitesViewed successfully";
+        echo "ALTER TABLE SitesViewed successfully</br>";
     } else {
         echo "<li>Error creating table: " . mysqli_error($conn). "</li>";
     }

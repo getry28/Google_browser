@@ -4,10 +4,14 @@
 
 // -------------------------------------- OPEN DATABASE CONNECTION ---------------------------------------
     // Database access data (individual for each person)
-    $servername = "localhost";
+    // $servername = "localhost";
+    // $username = "root";
+    // $password = "mysql";
+    // $dbname = "crawler";
+    $servername = "mysql";
     $username = "root";
-    $password = "root";
-    $dbname = "crawler";
+    $password = "mysql";
+    $dbname = "Crawler";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -56,14 +60,10 @@
         }
         $result = array_unique($result);
 
-        return $result;
-    }
-
-    function getPageContent($url){
-
-        // FUNCTION BODY
-
-        return 'CONTENT';
+        return [
+            'urls' => $result,
+            'content' => $dom->saveHTML()
+        ];
     }
 
 // ---------------------------------------------- MAIN CODE ----------------------------------------------
@@ -82,10 +82,11 @@
         } else {
             // Crawl urls
             $pageCrawlerResult = crawlPage($url, CRAWLER_DEPTH);
-            $pageContantResult = getPageContent($url);
+            $urls = $pageCrawlerResult['urls'];
+            $pageContent = mysqli_real_escape_string($conn, $pageCrawlerResult['content']);
 
             // Save visited site (url + content)
-            $sql = "INSERT INTO SitesViewed (site, content) VALUES ('$url', '$pageContantResult')";
+            $sql = "INSERT INTO SitesViewed (site, content) VALUES ('$url', '$pageContent')";
 
             if ($conn->query($sql) === TRUE) {
                 //echo "New site crawled successfully","<br>";
@@ -94,7 +95,7 @@
             }
 
             // Save crawled urls into separate table
-            foreach ($pageCrawlerResult as $link){
+            foreach ($urls as $link){
                 $sql = "INSERT INTO SitesAwaiting (site) VALUES ('$link')";
                 if ($conn->query($sql) === TRUE) {
                     //echo "New url to crawl added successfully";
@@ -134,7 +135,7 @@
     <div class="result">
         <?php
             // Display crawler results in HTML
-            foreach ($pageCrawlerResult as $index=>$href) {
+            foreach ($pageCrawlerResult['urls'] as $index=>$href) {
                 echo $result[$index] = '<a class="crawler-single-result" href="' . $href . '">' . $href . '</a>';
             }
         ?>
